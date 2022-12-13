@@ -250,7 +250,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.20.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.14.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.20.1, @babel/runtime@npm:^7.20.6, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.7":
   version: 7.20.6
   resolution: "@babel/runtime@npm:7.20.6"
   dependencies:
@@ -299,63 +299,63 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devexpress/dx-core@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@devexpress/dx-core@npm:4.0.0"
-  checksum: 6e38bcf5f16b7242b21bf3af09baeb81bbfdc3a9f55664d58c396a81bb3b50266bfe83a64eb1d961296ecb2d6194ef07e9e555d2d62e945ecef2ee4ac4b59021
+"@devexpress/dx-core@npm:3.0.6, @devexpress/dx-core@npm:^3.0.0":
+  version: 3.0.6
+  resolution: "@devexpress/dx-core@npm:3.0.6"
+  checksum: e696fadd65b5685c4e4371eb6c5503ff7039b6e04e7b47467e03638dbb63311394c283dddfa46e9e4cb4632b0d7d8f2b264107f4ecb9a7eb75e13daffb13692f
   languageName: node
   linkType: hard
 
-"@devexpress/dx-grid-core@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@devexpress/dx-grid-core@npm:4.0.0"
+"@devexpress/dx-grid-core@npm:3.0.6, @devexpress/dx-grid-core@npm:^3.0.0":
+  version: 3.0.6
+  resolution: "@devexpress/dx-grid-core@npm:3.0.6"
   peerDependencies:
-    "@devexpress/dx-core": 4.0.0
-  checksum: e0e467ed05261dd9d9002e2a489af9d7556d6e108d1fedc2ccf8cf151405a798dc56cff6e1a44ffe660639e85717d07e3b8a08d0eaf89f7ee52a22ce40117c38
+    "@devexpress/dx-core": 3.0.6
+  checksum: d4bac1396e85484651bd22703b23cbc483d5fe33944ae0d725a96645f5b28a5f6b09cf856eafd9ac826b00acd4be6bad51e5749a5eb153bc2796ce0a02d5cdd9
   languageName: node
   linkType: hard
 
-"@devexpress/dx-react-core@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@devexpress/dx-react-core@npm:4.0.0"
+"@devexpress/dx-react-core@npm:^3.0.0":
+  version: 3.0.6
+  resolution: "@devexpress/dx-react-core@npm:3.0.6"
   dependencies:
-    "@devexpress/dx-core": 4.0.0
+    "@devexpress/dx-core": 3.0.6
     prop-types: ^15.7.2
   peerDependencies:
     react: ">=17.0.2"
     react-dom: ">=17.0.2"
-  checksum: 7c3d74b658234c04ba10704d3144b52eba2ffa3dd6e28b81611c2022ea08c234747431166b0604794915213895f9d6eb94720d6cfd642fc6a9ac705ac4736d8e
+  checksum: acaad384c5898eec96a5b27289ac94a860307a1d65c1d04a500caa5cdd2f8f87b887578a9d33aa8910814b46783826636e237f1131ce0adac5ebf8843657cbfd
   languageName: node
   linkType: hard
 
-"@devexpress/dx-react-grid-material-ui@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@devexpress/dx-react-grid-material-ui@npm:4.0.0"
+"@devexpress/dx-react-grid-material-ui@npm:^3.0.0":
+  version: 3.0.6
+  resolution: "@devexpress/dx-react-grid-material-ui@npm:3.0.6"
   dependencies:
     clsx: ^1.0.4
     prop-types: ^15.7.2
   peerDependencies:
-    "@devexpress/dx-grid-core": 4.0.0
-    "@devexpress/dx-react-core": 4.0.0
-    "@devexpress/dx-react-grid": 4.0.0
+    "@devexpress/dx-grid-core": 3.0.6
+    "@devexpress/dx-react-core": 3.0.6
+    "@devexpress/dx-react-grid": 3.0.6
     "@mui/icons-material": ">=5.0.0"
     "@mui/material": ">=5.0.0"
     react: ">=17.0.2"
-  checksum: 161822029716a119f8101b26ca01315ea0a500667ecd6fb0442d530317c540c7394bd8a4191db70d26bd7dee0e447c33060b325cd48d2ea8f0707ce5ade5c0b6
+  checksum: 6c5e6d7e51e00c89e3e5d86f480870b5b172e50bc0036701af65c2f1cf84adde72cbbc7c4f219456c1b515e33820e2869760fdf4fb032485cb952b51b87a435c
   languageName: node
   linkType: hard
 
-"@devexpress/dx-react-grid@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@devexpress/dx-react-grid@npm:4.0.0"
+"@devexpress/dx-react-grid@npm:^3.0.0":
+  version: 3.0.6
+  resolution: "@devexpress/dx-react-grid@npm:3.0.6"
   dependencies:
-    "@devexpress/dx-grid-core": 4.0.0
+    "@devexpress/dx-grid-core": 3.0.6
   peerDependencies:
-    "@devexpress/dx-core": 4.0.0
-    "@devexpress/dx-react-core": 4.0.0
+    "@devexpress/dx-core": 3.0.6
+    "@devexpress/dx-react-core": 3.0.6
     react: ">=17.0.2"
     react-dom: ">=17.0.2"
-  checksum: 6b009c3ad6119fedb6aace9aca6866578bfefc5f963fca307b508bc8046cbb564e0cc517aa16013abe7a1e1e2f3e22defe49d6f1f5189adb712382f6bc2bd0b1
+  checksum: cd531ff831d2756c4fb3595b2d9d781256985b5019615af5ea7f9c51f84e715d7a34fa7a77a9745e4d57d798eab0437fc655f6d4991055355149fdd71477ff12
   languageName: node
   linkType: hard
 
@@ -826,6 +826,36 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 00cf9cdbb76a5806307d9cccb647cbd8e45d18a1be7e252727c789cd5a29103abf7fdbe724553425bcdff8daf58ec612e5a8c08c3c7a5a6e28efb14b86507687
+  languageName: node
+  linkType: hard
+
+"@mui/lab@npm:^5.0.0-alpha.111":
+  version: 5.0.0-alpha.111
+  resolution: "@mui/lab@npm:5.0.0-alpha.111"
+  dependencies:
+    "@babel/runtime": ^7.20.1
+    "@mui/base": 5.0.0-alpha.109
+    "@mui/system": ^5.10.17
+    "@mui/types": ^7.2.2
+    "@mui/utils": ^5.10.16
+    clsx: ^1.2.1
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@mui/material": ^5.0.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 671cd2bc7e9bebf526dd4e0ec4dec464a61d37fb28391485a22289d93ccbcae3b6ba79293fbfab9a0b34e82ea21cd15e3139f7dc6dc39f22fd125cc8c96f6249
   languageName: node
   linkType: hard
 
@@ -2779,6 +2809,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html-parse-stringify@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "html-parse-stringify@npm:3.0.1"
+  dependencies:
+    void-elements: 3.1.0
+  checksum: 334fdebd4b5c355dba8e95284cead6f62bf865a2359da2759b039db58c805646350016d2017875718bc3c4b9bf81a0d11be5ee0cf4774a3a5a7b97cde21cfd67
+  languageName: node
+  linkType: hard
+
 "http-cache-semantics@npm:^4.1.0":
   version: 4.1.0
   resolution: "http-cache-semantics@npm:4.1.0"
@@ -2813,6 +2852,15 @@ __metadata:
   dependencies:
     ms: ^2.0.0
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
+  languageName: node
+  linkType: hard
+
+"i18next@npm:^22.4.4":
+  version: 22.4.4
+  resolution: "i18next@npm:22.4.4"
+  dependencies:
+    "@babel/runtime": ^7.20.6
+  checksum: a65a17a7a79e6f5947a59237c31ce29e2816ad9e5d1d7511039ae921ea59e7f0e851bd827f859064d49ec4655d6fcff06b441a492d0698db6c9563c2b0e48888
   languageName: node
   linkType: hard
 
@@ -3196,6 +3244,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
+  languageName: node
+  linkType: hard
+
 "loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
@@ -3413,6 +3468,15 @@ __metadata:
   bin:
     nanoid: bin/nanoid.cjs
   checksum: 2fddd6dee994b7676f008d3ffa4ab16035a754f4bb586c61df5a22cf8c8c94017aadd360368f47d653829e0569a92b129979152ff97af23a558331e47e37cd9c
+  languageName: node
+  linkType: hard
+
+"nanoid@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nanoid@npm:4.0.0"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 7d5946df5c6d383694195b781ae7b5067c149d164ec71e910d6b06676309c3459b68af570b944fb5ecd5065d19df464f05700d141d70bb712ff8ca06642fd8df
   languageName: node
   linkType: hard
 
@@ -3740,14 +3804,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "qbt-tauri@workspace:."
   dependencies:
-    "@devexpress/dx-react-core": ^4.0.0
-    "@devexpress/dx-react-grid": ^4.0.0
-    "@devexpress/dx-react-grid-material-ui": ^4.0.0
+    "@devexpress/dx-core": ^3.0.0
+    "@devexpress/dx-grid-core": ^3.0.0
+    "@devexpress/dx-react-core": ^3.0.0
+    "@devexpress/dx-react-grid": ^3.0.0
+    "@devexpress/dx-react-grid-material-ui": ^3.0.0
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
     "@fontsource/roboto": ^4.5.8
     "@fontsource/roboto-mono": ^4.5.8
     "@mui/icons-material": ^5.10.16
+    "@mui/lab": ^5.0.0-alpha.111
     "@mui/material": ^5.10.17
     "@tauri-apps/api": ^1.2.0
     "@tauri-apps/cli": ^1.2.2
@@ -3764,8 +3831,12 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.6.1
     eslint-plugin-react: ^7.31.11
     eslint-plugin-react-hooks: ^4.6.0
+    i18next: ^22.4.4
+    lodash: ^4.17.21
+    nanoid: ^4.0.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-i18next: ^12.1.1
     react-number-format: ^5.1.2
     store: ^2.0.12
     typescript: 4.9.3
@@ -3789,6 +3860,24 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-i18next@npm:^12.1.1":
+  version: 12.1.1
+  resolution: "react-i18next@npm:12.1.1"
+  dependencies:
+    "@babel/runtime": ^7.14.5
+    html-parse-stringify: ^3.0.1
+  peerDependencies:
+    i18next: ">= 19.0.0"
+    react: ">= 16.8.0"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: baeb1957d70281d1a95ef0b94801bc2e6bf17066a49a45f32cd1a706ead3ddce2ab3e7b321e07c43f082efa9987c2d55856a5bdf419d9ad628dbfa9ec87af8ea
   languageName: node
   linkType: hard
 
@@ -4463,6 +4552,13 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: c51bd7cb955973cce1c63e6d29ac25ea6f8920db6de2ca97f285c80cf9607649d87254d1fabd9aa5920149572a6220686b9e3bf6fd0851f7c86ec8522bba0098
+  languageName: node
+  linkType: hard
+
+"void-elements@npm:3.1.0":
+  version: 3.1.0
+  resolution: "void-elements@npm:3.1.0"
+  checksum: 0390f818107fa8fce55bb0a5c3f661056001c1d5a2a48c28d582d4d847347c2ab5b7f8272314cac58acf62345126b6b09bea623a185935f6b1c3bbce0dfd7f7f
   languageName: node
   linkType: hard
 

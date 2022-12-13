@@ -30,14 +30,16 @@ impl Serialize for Error {
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 async fn qbt_login(
-    base_url: &str,
+    url: &str,
     username: &str,
     password: &str,
     state: State<'_, GlobalState>,
 ) -> Result<(), Error> {
-    let a = Api::login(base_url, username, password).await?;
+    println!("Login {} at {}", username, url);
+    let a = Api::login(url, username, password).await?;
     let mut api = state.api.write().await;
     *api = Some(a);
+    println!("Logged in");
     Ok(())
 }
 
@@ -46,6 +48,7 @@ async fn qbt_get_torrents_info(
     filter: &str,
     state: State<'_, GlobalState>,
 ) -> Result<Vec<qbittorrent_web_api::api_impl::torrent_management::info::Response>, Error> {
+    println!("Getting torrents of {}", filter);
     let api = state.api.read().await;
     let api = api.as_ref();
     let api = api.expect("no-api");
