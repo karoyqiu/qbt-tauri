@@ -11,11 +11,13 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "dialog": {
+        "open": true
+      }
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "Utility",
       "copyright": "",
       "deb": {
         "depends": []
@@ -28,7 +30,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.gmail.karoyqiu.qbt",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -57,7 +59,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "qbt-tauri",
+        "title": "qBittorrent",
         "width": 800
       }
     ]
