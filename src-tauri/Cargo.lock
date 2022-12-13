@@ -1995,6 +1995,8 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-window-state",
+ "thiserror",
+ "tokio",
 ]
 
 [[package]]
