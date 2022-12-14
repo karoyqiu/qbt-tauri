@@ -71,13 +71,13 @@ function TorrentTable(props: TorrentTableProps) {
   const { t } = useTranslation();
 
   const columns = React.useMemo<Column[]>(() => [
-    { name: 'name', title: t('Name') },
-    { name: 'progress', title: t('Progress') },
-    { name: 'size', title: t('Size') },
-    { name: 'dlspeed', title: t('Download Speed') },
-    { name: 'upspeed', title: t('Upload Speed') },
-    { name: 'added_on', title: t('Creation Time') },
-    { name: 'completion_on', title: t('Completion Time') },
+    { name: 'name', title: t<string>('Name') },
+    { name: 'progress', title: t<string>('Progress') },
+    { name: 'size', title: t<string>('Size') },
+    { name: 'dlspeed', title: t<string>('Download Speed') },
+    { name: 'upspeed', title: t<string>('Upload Speed') },
+    { name: 'added_on', title: t<string>('Creation Time') },
+    { name: 'completion_on', title: t<string>('Completion Time') },
   ], []);
 
   return (

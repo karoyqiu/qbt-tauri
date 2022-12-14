@@ -114,21 +114,21 @@ function MainPanel() {
           <Button
             startIcon={<PauseIcon />}
             disabled={selection.length === 0}
-            onClick={() => api.pause(selection)}
+          // onClick={() => api.pause(selection)}
           >
             {t('Pause')}
           </Button>
           <Button
             startIcon={<PlayArrowIcon />}
             disabled={selection.length === 0}
-            onClick={() => api.resume(selection)}
+          // onClick={() => api.resume(selection)}
           >
             {t('Resume')}
           </Button>
           <Button
             startIcon={<DeleteIcon />}
             disabled={selection.length === 0}
-            onClick={() => api.delete(selection)}
+          // onClick={() => api.delete(selection)}
           >
             {t('Delete')}
           </Button>
@@ -141,7 +141,7 @@ function MainPanel() {
         </ButtonGroup>
         <TextField
           sx={{ flex: 1 }}
-          placeholder={t('Search')}
+          placeholder={t<string>('Search')}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -185,8 +185,8 @@ function MainPanel() {
         </Tabs>
       </Stack>
       <TorrentTable torrents={torrents} selection={selection} setSelection={setSelection} />
-      <AddTorrentDialog open={addOpen} onClose={() => setAddOpen(false)} />
-      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+      {/* <AddTorrentDialog open={addOpen} onClose={() => setAddOpen(false)} />
+      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} /> */}
     </Stack>
   );
 }
