@@ -1,49 +1,64 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
-import "./App.css";
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { invoke } from '@tauri-apps/api/tauri';
+import React from 'react';
+import store from 'store';
+import BusyIndicator from './BusyIndicator';
+import LoginDialog, { LoginData } from './LoginDialog';
+import MainPanel from './MainPanel';
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loginOpen, setLoginOpen] = React.useState(false);
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = React.useMemo(
+    () => createTheme({
+      palette: {
+        mode: prefersDarkMode ? 'dark' : 'light',
+      },
+    }),
+    [prefersDarkMode],
+  );
+
+  const login = async (loginData?: LoginData) => {
+    let ok = false;
+
+    if (loginData) {
+      try {
+        await invoke('qbt_login', loginData);
+        ok = true;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    if (ok) {
+      setLoggedIn(true);
+      setLoginOpen(false);
+    } else {
+      setLoggedIn(false);
+      setLoginOpen(true);
+    }
+  };
+
+  const autoLogin = () => login(store.get('loginData') as LoginData);
+
+  React.useEffect(() => {
+    autoLogin().catch(() => { });
+  }, []);
 
   return (
-    <div className="container">
-      <h1>Welcome to Tauri!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <div className="row">
-        <div>
-          <input
-            id="greet-input"
-            onChange={(e) => setName(e.currentTarget.value)}
-            placeholder="Enter a name..."
-          />
-          <button type="button" onClick={() => greet()}>
-            Greet
-          </button>
-        </div>
-      </div>
-      <p>{greetMsg}</p>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {loggedIn ? <MainPanel /> : <BusyIndicator />}
+      <LoginDialog
+        open={loginOpen && !loggedIn}
+        onLogin={login}
+      />
+    </ThemeProvider>
   );
 }
 
