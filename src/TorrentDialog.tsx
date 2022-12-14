@@ -99,6 +99,10 @@ const makeTree = (contents: TorrentContent[]) => {
   const selected = new Set<string>();
 
   contents.forEach((c) => {
+    if (c.name.includes('_____padding_file_')) {
+      return;
+    }
+
     const parts = c.name.split('/');
     let parent = root;
 
@@ -194,8 +198,10 @@ const getChildrenIds = (rowIds: string[], rows: TorrentContentTree[]): string[] 
 
     if (row && row.children && row.children.length > 0) {
       const childrenIds = row.children.map((child) => child.id);
+      acc.push(...childrenIds);
+
       const additionalIds = getChildrenIds(childrenIds, rows);
-      return [...acc, ...childrenIds, ...additionalIds];
+      acc.push(...additionalIds);
     }
 
     return acc;
@@ -257,20 +263,39 @@ function TorrentDialog(props: TorrentDialogProps) {
     if (value.length > selection.length) {
       const added = value.filter((v) => !selection.includes(v));
       const children = getChildrenIds(added, rows);
-      const all = [...new Set([...value, ...children])];
-      const indexes = all.map((id) => find(rows, id)?.index ?? -1);
+      const indexes = children.map((id) => find(rows, id)?.index ?? -1);
       _.pull(indexes, -1);
       await invoke('qbt_set_file_priority', {
         hash,
         id: indexes,
         priority: TorrentContentPriority.NORMAL,
       });
-      setSelection(all);
+
+      const selected = _.union(value, children);
+
+      const isAllChildrenSelected = (parent: TorrentContentTree | null) => !!(
+        parent?.children?.every((child) => selected.includes(child.id))
+      );
+
+      const selectParent = (rowId: string) => {
+        const row = find(rows, rowId);
+
+        if (row?.parentId) {
+          const parent = find(rows, row.parentId);
+
+          if (isAllChildrenSelected(parent)) {
+            selected.push(row.parentId);
+            selectParent(row.parentId);
+          }
+        }
+      };
+
+      added.forEach(selectParent);
+      setSelection(selected);
     } else {
       const removed = selection.filter((id) => !value.includes(id));
       const children = getChildrenIds(removed, rows);
-      const all = [...new Set([...removed, ...children])];
-      const indexes = all.map((id) => find(rows, id)?.index ?? -1);
+      const indexes = children.map((id) => find(rows, id)?.index ?? -1);
       _.pull(indexes, -1);
       await invoke('qbt_set_file_priority', {
         hash,
@@ -278,7 +303,18 @@ function TorrentDialog(props: TorrentDialogProps) {
         priority: TorrentContentPriority.DO_NOT_DOWNLOAD,
       });
 
-      const selected = value.filter((id) => !children.includes(id));
+      const selected = _.difference(value, children);
+
+      const deselectParent = (rowId: string) => {
+        const row = find(rows, rowId);
+
+        if (row?.parentId) {
+          _.pull(selected, row.parentId);
+          deselectParent(row.parentId);
+        }
+      };
+
+      removed.forEach(deselectParent);
       setSelection(selected);
     }
   };
