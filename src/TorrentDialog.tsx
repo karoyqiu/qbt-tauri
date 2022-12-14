@@ -204,7 +204,7 @@ const getChildrenIds = (rowIds: string[], rows: TorrentContentTree[]): string[] 
       acc.push(...additionalIds);
     }
 
-    return acc;
+    return _.uniq(acc);
   }, [])
 );
 
@@ -259,9 +259,9 @@ function TorrentDialog(props: TorrentDialogProps) {
     }
   }, [open, hash]);
 
-  const handleSelection = async (value: string[]) => {
-    if (value.length > selection.length) {
-      const added = value.filter((v) => !selection.includes(v));
+  const handleSelection = async (value: string[], original = selection) => {
+    if (value.length > original.length) {
+      const added = value.filter((v) => !original.includes(v));
       const children = getChildrenIds(added, rows);
       const indexes = children.map((id) => find(rows, id)?.index ?? -1);
       _.pull(indexes, -1);
@@ -293,7 +293,7 @@ function TorrentDialog(props: TorrentDialogProps) {
       added.forEach(selectParent);
       setSelection(selected);
     } else {
-      const removed = selection.filter((id) => !value.includes(id));
+      const removed = original.filter((id) => !value.includes(id));
       const children = getChildrenIds(removed, rows);
       const indexes = children.map((id) => find(rows, id)?.index ?? -1);
       _.pull(indexes, -1);
@@ -322,7 +322,7 @@ function TorrentDialog(props: TorrentDialogProps) {
   const autoSelect = async () => {
     await handleSelection([]);
     const selected = autoSelectTree(rows);
-    await handleSelection(selected);
+    await handleSelection(selected, []);
   };
 
   return (
