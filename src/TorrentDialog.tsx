@@ -198,14 +198,12 @@ const getChildrenIds = (rowIds: string[], rows: TorrentContentTree[]): string[] 
 
     if (row && row.children && row.children.length > 0) {
       const childrenIds = row.children.map((child) => child.id);
-      acc.push(...childrenIds);
-
       const additionalIds = getChildrenIds(childrenIds, rows);
       acc.push(...additionalIds);
     }
 
     return _.uniq(acc);
-  }, [])
+  }, rowIds)
 );
 
 const autoSelectTree = (rows: TorrentContentTree[]) => {
