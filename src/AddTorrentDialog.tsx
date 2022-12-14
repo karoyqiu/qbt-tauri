@@ -1,7 +1,12 @@
 import DownloadIcon from '@mui/icons-material/Download';
-import {
-  Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField,
-} from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+import { invoke } from '@tauri-apps/api/tauri';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -20,8 +25,7 @@ function AddTorrentDialog(props: AddTorrentDialogProps) {
     setBusy(true);
 
     try {
-      const lines = text.split('\n').filter((line) => line.length > 0);
-      await api.add(lines);
+      await invoke('qbt_add', { urls: text });
     } catch (error) {
       console.error(error);
     }
@@ -45,8 +49,8 @@ function AddTorrentDialog(props: AddTorrentDialogProps) {
           autoFocus
           fullWidth
           label={t('URLs')}
-          placeholder={t('Input one URL per line')}
-          rows={5}
+          placeholder={t<string>('Input one URL per line')}
+          rows={7}
           sx={{ mt: 1 }}
           value={text}
           onChange={(event) => setText(event.target.value)}

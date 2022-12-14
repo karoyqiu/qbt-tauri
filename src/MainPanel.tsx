@@ -185,8 +185,8 @@ function MainPanel() {
         </Tabs>
       </Stack>
       <TorrentTable torrents={torrents} selection={selection} setSelection={setSelection} />
-      {/* <AddTorrentDialog open={addOpen} onClose={() => setAddOpen(false)} />
-      <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} /> */}
+      <AddTorrentDialog open={addOpen} onClose={() => setAddOpen(false)} />
+      {/* <SettingsDialog open={settingsOpen} onClose={() => setSettingsOpen(false)} /> */}
     </Stack>
   );
 }
