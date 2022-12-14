@@ -53,20 +53,22 @@ async fn qbt_get_torrents_info(
     let api = api.as_ref();
     let api = api.unwrap();
     let tm = api.torrent_management();
-    let builder = tm.info().filter(filter);
-
-    Ok(builder.send().await?)
+    Ok(tm
+        .info()
+        .filter(filter)
+        .sort("completion_on")
+        .send()
+        .await?)
 }
 
 #[tauri::command]
-async fn qbt_add(urls: &str, state: State<'_, GlobalState>) -> Result<(), Error> {
+async fn qbt_add(urls: &str, state: State<'_, GlobalState>) -> Result<String, Error> {
     println!("Adding urls");
     let api = state.api.read().await;
     let api = api.as_ref();
     let api = api.unwrap();
     let tm = api.torrent_management();
-    tm.add(urls).root_folder("true").send().await?;
-    Ok(())
+    Ok(tm.add(urls).root_folder("true").send().await?)
 }
 
 #[tauri::command]
