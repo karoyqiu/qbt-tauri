@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "qbt-tauri",
-    "version": "0.0.0"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -48,9 +48,7 @@
         "timestampUrl": ""
       }
     },
-    "security": {
-      "csp": null
-    },
+    "security": {},
     "updater": {
       "active": false
     },
@@ -60,6 +58,7 @@
         "height": 600,
         "resizable": true,
         "title": "qBittorrent",
+        "visible": false,
         "width": 800
       }
     ]
