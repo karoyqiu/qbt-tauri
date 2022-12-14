@@ -8,29 +8,38 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UploadIcon from '@mui/icons-material/Upload';
-import {
-  Button, ButtonGroup, IconButton, InputAdornment, Stack, Tab, TabProps, Tabs, TextField,
-} from '@mui/material';
-import React from 'react';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Stack from '@mui/material/Stack';
+import Tab, { TabProps } from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import TextField from '@mui/material/TextField';
 import { invoke } from '@tauri-apps/api/tauri';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TorrentContentPriority, TorrentFilter, TorrentInfo } from './qBittorrentTypes';
-import settings from './settings';
 import AddTorrentDialog from './AddTorrentDialog';
+import {
+  TorrentContent, TorrentContentPriority, TorrentFilter, TorrentInfo,
+} from './qBittorrentTypes';
+import settings from './settings';
 import SettingsDialog from './SettingsDialog';
 import TorrentTable from './TorrentTable';
 
-// declare const api: typeof import('./').default;
-
 const doNotDownloadSmallFiles = async (hash: string) => {
-  // const contents = await api.getTorrentContent(hash);
-  // const smalls = contents.filter((c) => (
-  //   c.priority !== TorrentContentPriority.DO_NOT_DOWNLOAD && c.size < settings.smallFileThreshold
-  // )).map((c) => c.index);
+  const contents: TorrentContent[] = await invoke('qbt_get_files', { hash });
+  const smalls = contents.filter((c) => (
+    c.priority !== TorrentContentPriority.DO_NOT_DOWNLOAD && c.size < settings.smallFileThreshold
+  )).map((c) => c.index);
 
-  // if (smalls.length > 0) {
-  //   await api.setFilePriority(hash, smalls, TorrentContentPriority.DO_NOT_DOWNLOAD);
-  // }
+  if (smalls.length > 0) {
+    await invoke('qbt_set_file_priority', {
+      hash,
+      id: smalls,
+      priority: TorrentContentPriority.DO_NOT_DOWNLOAD,
+    });
+  }
 };
 
 const checkNewDownloads = async (oldOnes: TorrentInfo[], newOnes: TorrentInfo[]) => {

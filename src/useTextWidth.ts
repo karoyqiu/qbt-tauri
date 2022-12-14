@@ -6,6 +6,11 @@ const useTextWidth = () => {
   return {
     getTextWidth: (text: string, font?: string) => {
       const ctx = canvas.getContext('2d');
+
+      if (!ctx) {
+        return 0;
+      }
+
       ctx.font = font ?? getCanvasFont();
       const metrics = ctx.measureText(text);
       return Math.ceil(metrics.width);

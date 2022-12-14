@@ -1,5 +1,6 @@
 import { DataTypeProvider, DataTypeProviderProps } from '@devexpress/dx-react-grid';
-import { Stack, CircularProgress } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

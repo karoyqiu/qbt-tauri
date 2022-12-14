@@ -1,5 +1,4 @@
 import { DataTypeProvider, DataTypeProviderProps } from '@devexpress/dx-react-grid';
-import React from 'react';
 
 function DateFormatter(props: DataTypeProvider.ValueFormatterProps) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -1,11 +1,10 @@
 import { DataTypeProvider, DataTypeProviderProps } from '@devexpress/dx-react-grid';
-import { Stack } from '@mui/material';
-import React from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
 import DownloadDoneIcon from '@mui/icons-material/DownloadDone';
 import ErrorIcon from '@mui/icons-material/Error';
 import PauseIcon from '@mui/icons-material/Pause';
 import UploadIcon from '@mui/icons-material/Upload';
+import Stack from '@mui/material/Stack';
 import LinkButton from './LinkButton';
 import { TorrentInfo, TorrentState } from './qBittorrentTypes';
 

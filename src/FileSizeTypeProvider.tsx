@@ -1,5 +1,4 @@
 import { DataTypeProvider, DataTypeProviderProps } from '@devexpress/dx-react-grid';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const sizeUnits = ['byte', 'kilobyte', 'megabyte', 'gigabyte', 'terabyte', 'petabyte'] as const;

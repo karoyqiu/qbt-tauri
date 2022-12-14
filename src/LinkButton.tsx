@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Link } from '@mui/material';
+import Link from '@mui/material/Link';
 import React from 'react';
 
 type LinkButtonProps = {

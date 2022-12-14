@@ -65,8 +65,36 @@ async fn qbt_add(urls: &str, state: State<'_, GlobalState>) -> Result<(), Error>
     let api = api.as_ref();
     let api = api.unwrap();
     let tm = api.torrent_management();
-    tm.add(&urls).root_folder("true").send().await?;
+    tm.add(urls).root_folder("true").send().await?;
     Ok(())
+}
+
+#[tauri::command]
+async fn qbt_get_files(
+    hash: &str,
+    state: State<'_, GlobalState>,
+) -> Result<Vec<files::Response>, Error> {
+    let api = state.api.read().await;
+    let api = api.as_ref();
+    let api = api.unwrap();
+    let tm = api.torrent_management();
+    Ok(tm.files(hash).send().await?)
+}
+
+#[tauri::command]
+async fn qbt_set_file_priority(
+    hash: &str,
+    id: Vec<i32>,
+    priority: file_prio::Priority,
+    state: State<'_, GlobalState>,
+) -> Result<String, Error> {
+    let api = state.api.read().await;
+    let api = api.as_ref();
+    let api = api.unwrap();
+    let tm = api.torrent_management();
+    let id: Vec<String> = id.iter().map(|x| x.to_string()).collect();
+    let id: Vec<&str> = id.iter().map(|x| &**x).collect();
+    Ok(tm.file_prio(hash, &id, &priority).await?)
 }
 
 fn main() {
@@ -77,7 +105,9 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             qbt_login,
             qbt_get_torrents_info,
-            qbt_add
+            qbt_add,
+            qbt_get_files,
+            qbt_set_file_priority,
         ])
         .plugin(tauri_plugin_window_state::Builder::default().build())
         .run(tauri::generate_context!())

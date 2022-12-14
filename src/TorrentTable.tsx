@@ -4,14 +4,14 @@ import {
 import {
   Grid, TableHeaderRow, TableSelection, VirtualTable,
 } from '@devexpress/dx-react-grid-material-ui';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TorrentInfo } from './qBittorrentTypes';
 import DateTypeProvider from './DateTypeProvider';
 import FileSizeTypeProvider from './FileSizeTypeProvider';
 import HashLinkTypeProvider from './HashLinkTypeProvider';
 import ProgressTypeProvider from './ProgressTypeProvider';
+import { TorrentInfo } from './qBittorrentTypes';
 import TorrentDialog from './TorrentDialog';
 
 function Root(props: Grid.RootProps) {

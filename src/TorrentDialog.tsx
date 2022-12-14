@@ -9,17 +9,16 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { invoke } from '@tauri-apps/api/tauri';
 import _ from 'lodash';
 import { nanoid } from 'nanoid';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TorrentContent, TorrentContentPriority } from './qBittorrentTypes';
 import CellTooltip from './CellTooltip';
 import FileSizeTypeProvider from './FileSizeTypeProvider';
 import ProgressTypeProvider from './ProgressTypeProvider';
-import settings from './/settings';
-
-declare const api: typeof import('./').default;
+import { TorrentContent, TorrentContentPriority } from './qBittorrentTypes';
+import settings from './settings';
 
 type TorrentContentTree = TorrentContent & {
   id: string;
@@ -29,7 +28,7 @@ type TorrentContentTree = TorrentContent & {
 
 const findChild = (parent: TorrentContentTree, childName: string) => {
   // eslint-disable-next-line no-restricted-syntax
-  for (const child of parent.children) {
+  for (const child of (parent.children ?? [])) {
     if (child.name === childName) {
       return child;
     }
@@ -122,7 +121,8 @@ const makeTree = (contents: TorrentContent[]) => {
         id: nanoid(),
         parentId: parent.id,
       };
-      child.name = parts.shift();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      child.name = parts.shift()!;
 
       if (parts.length > 0) {
         // 这是个文件夹
@@ -192,7 +192,7 @@ const getChildrenIds = (rowIds: string[], rows: TorrentContentTree[]): string[] 
   rowIds.reduce<string[]>((acc, rowId) => {
     const row = find(rows, rowId);
 
-    if (row.children && row.children.length > 0) {
+    if (row && row.children && row.children.length > 0) {
       const childrenIds = row.children.map((child) => child.id);
       const additionalIds = getChildrenIds(childrenIds, rows);
       return [...acc, ...childrenIds, ...additionalIds];
@@ -230,15 +230,15 @@ function TorrentDialog(props: TorrentDialogProps) {
   const { t } = useTranslation();
 
   const columns = React.useMemo<Column[]>(() => [
-    { name: 'name', title: t('Name') },
-    { name: 'size', title: t('Size') },
-    { name: 'progress', title: t('Progress') },
+    { name: 'name', title: t<string>('Name') },
+    { name: 'size', title: t<string>('Size') },
+    { name: 'progress', title: t<string>('Progress') },
   ], []);
 
   const loadContent = async () => {
     try {
-      const res = await api.getTorrentContent(hash);
-      const { tree, folders, selected } = makeTree(res);
+      const content: TorrentContent[] = await invoke('qbt_get_files', { hash });
+      const { tree = [], folders, selected } = makeTree(content);
       setRows(tree);
       setExpanded(folders);
       setSelection(selected);
@@ -258,16 +258,25 @@ function TorrentDialog(props: TorrentDialogProps) {
       const added = value.filter((v) => !selection.includes(v));
       const children = getChildrenIds(added, rows);
       const all = [...new Set([...value, ...children])];
-      const indexes = all.map((id) => find(rows, id).index);
-      await api.setFilePriority(hash, indexes, TorrentContentPriority.NORMAL);
+      const indexes = all.map((id) => find(rows, id)?.index ?? -1);
+      _.pull(indexes, -1);
+      await invoke('qbt_set_file_priority', {
+        hash,
+        id: indexes,
+        priority: TorrentContentPriority.NORMAL,
+      });
       setSelection(all);
     } else {
       const removed = selection.filter((id) => !value.includes(id));
       const children = getChildrenIds(removed, rows);
       const all = [...new Set([...removed, ...children])];
-      const indexes = all.map((id) => find(rows, id).index);
+      const indexes = all.map((id) => find(rows, id)?.index ?? -1);
       _.pull(indexes, -1);
-      await api.setFilePriority(hash, indexes, TorrentContentPriority.DO_NOT_DOWNLOAD);
+      await invoke('qbt_set_file_priority', {
+        hash,
+        id: indexes,
+        priority: TorrentContentPriority.DO_NOT_DOWNLOAD,
+      });
 
       const selected = value.filter((id) => !children.includes(id));
       setSelection(selected);
@@ -298,7 +307,7 @@ function TorrentDialog(props: TorrentDialogProps) {
           />
           <CustomTreeData getChildRows={
             (row: TorrentContentTree | null, rootRows: TorrentContentTree[]) => (
-              row ? row.children : rootRows
+              row ? (row.children ?? null) : rootRows
             )
           }
           />

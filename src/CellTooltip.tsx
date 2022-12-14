@@ -1,6 +1,5 @@
 import { DataTypeProvider, DataTypeProviderProps } from '@devexpress/dx-react-grid';
-import { Tooltip } from '@mui/material';
-import React from 'react';
+import Tooltip from '@mui/material/Tooltip';
 
 function TooltipFormatter(props: DataTypeProvider.ValueFormatterProps) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

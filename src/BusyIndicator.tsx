@@ -1,5 +1,5 @@
-import { Box, CircularProgress } from '@mui/material';
-import React from 'react';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function BusyIndicator() {
   return (
