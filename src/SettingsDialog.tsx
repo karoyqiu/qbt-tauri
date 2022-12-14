@@ -1,13 +1,16 @@
 /* eslint-disable max-len */
-import { InputAdornment, Stack, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import InputAdornment from '@mui/material/InputAdornment';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import settings from "./settings";
+import SaveIcon from '@mui/icons-material/Save';
+import settings from './settings';
 
 type SettingsDialogProps = {
   open: boolean;
@@ -29,7 +32,7 @@ function SettingsDialog(props: SettingsDialogProps) {
     }
   }, [open]);
 
-  const getUnit = (unit: string) => {
+  const getUnit = React.useCallback((unit: string) => {
     const formatter = new Intl.NumberFormat(i18n.language, {
       style: 'unit',
       unit,
@@ -39,7 +42,7 @@ function SettingsDialog(props: SettingsDialogProps) {
     const parts = formatter.formatToParts();
     const u = parts.find((p) => p.type === 'unit');
     return u ? u.value : unit;
-  };
+  }, [i18n.language]);
 
   const save = () => {
     settings.listRefreshInterval = listRefreshInterval;
@@ -106,7 +109,13 @@ function SettingsDialog(props: SettingsDialogProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{t('Cancel')}</Button>
-        <Button variant="contained" onClick={save}>{t('Save')}</Button>
+        <Button
+          variant="contained"
+          startIcon={<SaveIcon />}
+          onClick={save}
+        >
+          {t('Save')}
+        </Button>
       </DialogActions>
     </Dialog>
   );
