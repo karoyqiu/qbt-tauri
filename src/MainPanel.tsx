@@ -49,12 +49,12 @@ const checkNewDownloads = async (oldOnes: TorrentInfo[], newOnes: TorrentInfo[])
 };
 
 const checkSeedingDownloads = async (dls: TorrentInfo[]) => {
-  // const deadline = Math.ceil(Date.now() / 1000) - settings.seedingThreshold;
-  // const seededEnough = dls.filter((d) => d.completion_on > 0 && d.completion_on <= deadline);
+  const deadline = Math.ceil(Date.now() / 1000) - settings.seedingThreshold;
+  const seededEnough = dls.filter((d) => d.completion_on > 0 && d.completion_on <= deadline);
 
-  // if (seededEnough.length > 0) {
-  //   await api.pause(seededEnough.map((s) => s.hash));
-  // }
+  if (seededEnough.length > 0) {
+    await invoke('qbt_pause', { hashes: seededEnough.map((s) => s.hash) });
+  }
 };
 
 function LowTab(props: TabProps) {
@@ -123,21 +123,21 @@ function MainPanel() {
           <Button
             startIcon={<PauseIcon />}
             disabled={selection.length === 0}
-          // onClick={() => api.pause(selection)}
+            onClick={() => invoke('qbt_pause', { hashes: selection })}
           >
             {t('Pause')}
           </Button>
           <Button
             startIcon={<PlayArrowIcon />}
             disabled={selection.length === 0}
-          // onClick={() => api.resume(selection)}
+            onClick={() => invoke('qbt_resume', { hashes: selection })}
           >
             {t('Resume')}
           </Button>
           <Button
             startIcon={<DeleteIcon />}
             disabled={selection.length === 0}
-          // onClick={() => api.delete(selection)}
+            onClick={() => invoke('qbt_delete', { hashes: selection })}
           >
             {t('Delete')}
           </Button>

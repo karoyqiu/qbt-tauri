@@ -97,6 +97,36 @@ async fn qbt_set_file_priority(
     Ok(tm.file_prio(hash, &id, &priority).await?)
 }
 
+#[tauri::command]
+async fn qbt_pause(hashes: Vec<String>, state: State<'_, GlobalState>) -> Result<String, Error> {
+    let api = state.api.read().await;
+    let api = api.as_ref();
+    let api = api.unwrap();
+    let tm = api.torrent_management();
+    let hashes: Vec<&str> = hashes.iter().map(|x| &**x).collect();
+    Ok(tm.pause(&hashes).await?)
+}
+
+#[tauri::command]
+async fn qbt_resume(hashes: Vec<String>, state: State<'_, GlobalState>) -> Result<String, Error> {
+    let api = state.api.read().await;
+    let api = api.as_ref();
+    let api = api.unwrap();
+    let tm = api.torrent_management();
+    let hashes: Vec<&str> = hashes.iter().map(|x| &**x).collect();
+    Ok(tm.resume(&hashes).await?)
+}
+
+#[tauri::command]
+async fn qbt_delete(hashes: Vec<String>, state: State<'_, GlobalState>) -> Result<String, Error> {
+    let api = state.api.read().await;
+    let api = api.as_ref();
+    let api = api.unwrap();
+    let tm = api.torrent_management();
+    let hashes: Vec<&str> = hashes.iter().map(|x| &**x).collect();
+    Ok(tm.delete(&hashes, true).await?)
+}
+
 fn main() {
     tauri::Builder::default()
         .manage(GlobalState {
@@ -104,8 +134,11 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             qbt_login,
-            qbt_get_torrents_info,
             qbt_add,
+            qbt_delete,
+            qbt_pause,
+            qbt_resume,
+            qbt_get_torrents_info,
             qbt_get_files,
             qbt_set_file_priority,
         ])
